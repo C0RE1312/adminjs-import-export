@@ -1,6 +1,6 @@
 import { buildFeature, FeatureType, ComponentLoader } from 'adminjs';
 
-import { postActionHandler } from './utils.js';
+import { customBefore, postActionHandler } from './utils.js';
 import { exportHandler } from './export.handler.js';
 import { importHandler } from './import.handler.js';
 import { bundleComponent } from './bundle-component.js';
@@ -25,6 +25,7 @@ const importExportFeature = (
         handler: postActionHandler(exportHandler),
         component: exportComponent,
         actionType: 'resource',
+        before: customBefore,
       },
       import: {
         handler: postActionHandler(importHandler),

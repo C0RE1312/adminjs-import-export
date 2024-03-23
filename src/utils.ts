@@ -43,10 +43,24 @@ export const getImporterByFileName = (fileName: string): Importer => {
   throw new Error('No parser found');
 };
 
+export const customBefore = (request, context) => {
+    console.log(request);
+    const { query = {} } = request
+    const newQuery = {
+      ...query,
+      ['filters.qualified']: 'true',
+    }
+    
+    request.query = newQuery
+    
+    return request
+  }
+
 export const postActionHandler =
   (handler: ActionHandler<ActionResponse>): ActionHandler<ActionResponse> =>
   async (request, response, context) => {
     if (request.method !== 'post') {
+        console.log(context)
       return {};
     }
 
